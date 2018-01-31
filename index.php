@@ -1,3 +1,8 @@
+<?
+  include("connect_db.php");
+  $consulta= "SELECT codigo, descripcion FROM preguntas ";
+  $result=mysql_query($consulta);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +68,14 @@
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Selecciona una pregunta y réspondala</b></label>
-      <input type="number" name="question" class="form-control"  required placeholder="Cod_pregunta"/>
+      <select name="question">
+        <option value="">Seleccionar</option>
+        <?
+          while($fila=mysql_fetch_row($result)){
+            echo "<option value='".$fila['0']."'>".$fila['1']."</option>";
+        }
+        ?>
+      </select>
       <input type="text" name="answer" class="form-control"  required placeholder="Respuesta"/>
     </div>
     <div class="form-group">
