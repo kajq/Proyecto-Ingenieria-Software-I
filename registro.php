@@ -14,7 +14,7 @@
 
 	require("connect_db.php");
 //la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
-	$checkemail=mysqli_query($mysqli,"SELECT * FROM datos_personales WHERE correo='$mail'");
+	$checkemail=mysqli_query($mysqli,"SELECT * FROM datos_personales WHERE FK_correo='$mail'");
 	$check_mail=mysqli_num_rows($checkemail);
 		if($pass==$rpass){
 			if($check_mail>0){

@@ -1,7 +1,8 @@
-<?
-  include("connect_db.php");
-  $consulta= "SELECT codigo, descripcion FROM preguntas ";
-  $result=mysql_query($consulta);
+<?php
+  require("connect_db.php");
+  $mysqli->set_charset("utf8");
+  $res = $mysqli->query("SELECT * FROM preguntas");
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,9 +71,11 @@
       <label style="font-size: 14pt; color: #;"><b>Selecciona una pregunta y réspondala</b></label>
       <select name="question">
         <option value="">Seleccionar</option>
-        <?
-          while($fila=mysql_fetch_row($result)){
-            echo "<option value='".$fila['0']."'>".$fila['1']."</option>";
+        <?php
+            while($f = $res->fetch_object()){
+          echo '<option value= ';
+          echo $f->codigo.'"> ';
+          echo  $f->descripcion.' </option>';
         }
         ?>
       </select>
