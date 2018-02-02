@@ -33,6 +33,7 @@
 			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Aceptar"></td>
 			</tr></tr></table>
 		</form>
+    
 <br>
 <!-- formulario registro -->
 

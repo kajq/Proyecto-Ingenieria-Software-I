@@ -24,9 +24,9 @@ session_start();
 
 			if($f2['rol']==1){
 				echo '<script>alert("BIENVENIDO ADMINISTRADOR")</script> ';
+				
 			}
-
-			header("Location: dashboard.php");
+			header("Location: dashboard.php/?us=$username");
 		}else{
 			echo '<script>alert("CONTRASEÑA INCORRECTA")</script> ';
 		
