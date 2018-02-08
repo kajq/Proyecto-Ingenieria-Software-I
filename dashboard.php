@@ -1,8 +1,8 @@
 <?php
   require("connect_db.php");
   $mysqli->set_charset("utf8");
-  $username = $_GET['us'];
-  $sql = $mysqli->query("SELECT * FROM usuarios where correo = '$username'");
+  $v1 = $_GET['us'];
+  $sql = $mysqli->query("SELECT * FROM usuarios where correo = '$v1'");
   
 ?>
 <!DOCTYPE html>
@@ -16,10 +16,13 @@
 	<title>Dashboard</title>
 </head>
 <body background="" style="background-attachment: fixed" >
-  <?php
+  <?php  
+  echo $v1;
   if($f2=mysqli_fetch_assoc($sql)){
     if($f2['rol']==1){
+        echo '<form action="../admin.php/?us=$v1">';
         echo '<input  class="btn btn-danger" type="submit" name="config" value="Configuración"/>';
+        echo '</form>';
       }
     }  
   ?>  
