@@ -8,7 +8,7 @@
 session_start();
 	require("connect_db.php");
 
-	$username=$_POST['mail'];
+	$user=$_POST['mail'];
 	$pass=$_POST['pass'];
 
 
@@ -16,17 +16,17 @@ session_start();
 	$sql2=mysqli_query($mysqli,
 		"SELECT correo, contrasena, rol 
 		FROM usuarios 
-		WHERE correo='$username'");
+		WHERE correo='$user'");
 	if($f2=mysqli_fetch_assoc($sql2)){
 		if($pass==$f2['contrasena']){
-			$_SESSION['correo']=$f2['correo'];
+			$_SESSION['username']=$f2['correo'];
 			$_SESSION['rol']=$f2['rol'];
 
-			if($f2['rol']==1){
+			if($f2['rol']=='1'){
 				echo '<script>alert("BIENVENIDO ADMINISTRADOR")</script> ';
 				
 			}
-			header("Location: dashboard.php/?us=$username");
+			header("Location: dashboard.php");
 		}else{
 			echo '<script>alert("CONTRASEÑA INCORRECTA")</script> ';
 		

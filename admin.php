@@ -1,27 +1,16 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if (@!$_SESSION['user']) {
+if (@!$_SESSION['username']) {
 	header("Location:index.php");
-}elseif ($_SESSION['rol']==2) {
-	header("Location:index2.php");
 }
 ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Proyecto Academias</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Joseph Godoy">
-
+    <title>Admin</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
 <body data-offset="40" background="images/fondotot.jpg" style="background-attachment: fixed">
 <div class="container">
@@ -41,16 +30,14 @@ if (@!$_SESSION['user']) {
 	<div class="container">
 	  <div class="nav-collapse">
 		<ul class="nav">
-			<li class=""><a href="admin.php">ADMINISTRADOR DEL SITIO</a></li>
-			 
-	
+			<li><a href="">Bienvenido <strong><?php echo $_SESSION['nombre'];?></strong> </a></li>
 		</ul>
 		<form action="#" class="navbar-search form-inline" style="margin-top:6px">
 		
 		</form>
 		<ul class="nav pull-right">
-		<li><a href="">Bienvenido <strong><?php echo $_SESSION['user'];?></strong> </a></li>
-			  <li><a href="desconectar.php"> Cerrar Cesión </a></li>			 
+		<li><a href="dashboard.php"> Dashboard </a></li>			 
+		<li><a href="desconectar.php"> Cerrar Cesión </a></li>			 
 		</ul>
 	  </div><!-- /.nav-collapse -->
 	</div>
@@ -59,9 +46,7 @@ if (@!$_SESSION['user']) {
 
 <!-- ======================================================================================================================== -->
 <div class="row">
-	
-	
-		
+			
 	<div class="span12">
 
 		<div class="caption">
@@ -72,27 +57,22 @@ if (@!$_SESSION['user']) {
 		<hr class="soft"/>
 		<h4>Tabla de Usuarios</h4>
 		<div class="row-fluid">
-		
-
-
 
 			<?php
-
+				$username = $_SESSION['username'];
 				require("connect_db.php");
-				$sql=("SELECT * FROM login");
+				$sql=("SELECT correo, contrasena, case when rol = 1 then 'Administrador' else 'Usuario' end FROM usuarios WHERE correo <> '$username' ");
 	
 //la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
 				$query=mysqli_query($mysqli,$sql);
 
 				echo "<table border='1'; class='table table-hover';>";
 					echo "<tr class='warning'>";
-						echo "<td>Id</td>";
-						echo "<td>Usaurio</td>";
-						echo "<td>Password</td>";
 						echo "<td>Correo</td>";
-						echo "<td>Password del administrador</td>";
-						echo "<td>Editar</td>";
-						echo "<td>Borrar</td>";
+						echo "<td>Password</td>";
+						echo "<td>Rol</td>";
+						echo "<td>Cambiar Rol</td>";
+						echo "<td>Eliminar Usuario</td>";
 					echo "</tr>";
 
 			    
@@ -104,11 +84,9 @@ if (@!$_SESSION['user']) {
 				    	echo "<td>$arreglo[0]</td>";
 				    	echo "<td>$arreglo[1]</td>";
 				    	echo "<td>$arreglo[2]</td>";
-				    	echo "<td>$arreglo[3]</td>";
-				    	echo "<td>$arreglo[4]</td>";
 
-				    	echo "<td><a href='actualizar.php?id=$arreglo[0]'><img src='images/actualizar.gif' class='img-rounded'></td>";
-						echo "<td><a href='admin.php?id=$arreglo[0]&idborrar=2'><img src='images/eliminar.png' class='img-rounded'/></a></td>";
+				    	echo "<td><a href='admin.php?id=$arreglo[0]&rol=$arreglo[2]&id_boton=1'><img src='images/actualizar.gif' class='img-rounded'></td>";
+						echo "<td><a href='admin.php?id=$arreglo[0]&id_boton=2'><img src='images/eliminar.png' class='img-rounded'/></a></td>";
 						
 
 						
@@ -118,13 +96,41 @@ if (@!$_SESSION['user']) {
 				echo "</table>";
 
 					extract($_GET);
-					if(@$idborrar==2){
-		
-						$sqlborrar="DELETE FROM login WHERE id=$id";
-						$resborrar=mysqli_query($mysqli,$sqlborrar);
-						echo '<script>alert("REGISTRO ELIMINADO")</script> ';
-						//header('Location: proyectos.php');
-						echo "<script>location.href='admin.php'</script>";
+					if(@$id_boton==1){
+						if(@$rol=='Usuario'){	
+							$sqlUpdateDatos="UPDATE usuarios SET rol = 1 WHERE usuarios.correo = '$id'";
+							$resUpdateDatos=mysqli_query($mysqli,$sqlUpdateDatos);
+							}
+						if(@$rol=='Administrador'){
+							$sqlUpdateDatos="UPDATE usuarios SET rol = 2 WHERE usuarios.correo = '$id'";
+							$resUpdateDatos=mysqli_query($mysqli,$sqlUpdateDatos);
+							}
+							if (!$resUpdateDatos) {
+   							printf("Errormessage1: %s\n", $mysqli->error);
+							} else {
+								echo '<script>alert("Se ha editado los administradores")</script> ';
+								//header('Location: proyectos.php');
+								echo "<script>location.href='admin.php'</script>";
+							}
+	
+					}
+					if(@$id_boton==2){
+							
+						$sqlborrarDatos="DELETE FROM datos_personales WHERE FK_correo='$id'";
+						$resborrarDatos=mysqli_query($mysqli,$sqlborrarDatos);
+							if (!$resborrarDatos) {
+   							printf("Errormessage1: %s\n", $mysqli->error);
+							}else {
+							$sqlborrarUsuario="DELETE FROM usuarios WHERE correo='$id'";
+							$resborrarUsuario=mysqli_query($mysqli,$sqlborrarUsuario);
+								if (!$resborrarUsuario) {
+		   						printf("Errormessage2: %s\n", $mysqli->error);
+								} else {
+								echo '<script>alert("REGISTRO ELIMINADO")</script> ';
+								//header('Location: proyectos.php');
+								echo "<script>location.href='admin.php'</script>";
+										}
+									}
 					}
 
 			?>
@@ -168,7 +174,7 @@ if (@!$_SESSION['user']) {
 <footer class="footer">
 
 <hr class="soften"/>
-<p>&copy; Copyright Joseph Godoy <br/><br/></p>
+<p>&copy; Copyright Keilor Jiménez <br/><br/></p>
  </footer>
 </div><!-- /container -->
 
@@ -177,6 +183,6 @@ if (@!$_SESSION['user']) {
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bootstrap/js/jquery-1.8.3.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-	</style>
+	</style>
   </body>
 </html>

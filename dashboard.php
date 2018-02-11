@@ -1,31 +1,43 @@
 <?php
+  session_start();
+  if (@!$_SESSION['username']) {
+    header("Location:index.php");
+  }
   require("connect_db.php");
-  $mysqli->set_charset("utf8");
-  $v1 = $_GET['us'];
-  $sql = $mysqli->query("SELECT * FROM usuarios where correo = '$v1'");
-  
+  $user=$_SESSION['username'];
+  $sql=mysqli_query($mysqli, "SELECT nombre FROM datos_personales where FK_correo = '$user'"); 
+      if (!$sql) {
+        printf("Errormessage1: %s\n", $mysqli->error);
+      } else {
+        $datos_usuario=mysqli_fetch_assoc($sql);
+        $_SESSION['nombre']=$datos_usuario['nombre'];
+      }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+    <title>Administrador de Tareas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<meta charset="utf-8">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
-		<link rel="stylesheet" type="text/css" href="estilos/estilos.css">
-	<title>Dashboard</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="bootstrap/js/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	
 </head>
 <body background="" style="background-attachment: fixed" >
+  <ul>
   <?php  
-  echo $v1;
-  if($f2=mysqli_fetch_assoc($sql)){
-    if($f2['rol']==1){
-        echo '<form action="../admin.php/?us=$v1">';
-        echo '<input  class="btn btn-danger" type="submit" name="config" value="Configuración"/>';
+    echo $_SESSION['nombre'];
+    if($_SESSION['rol']==1){
+        echo '<form action="admin.php">'; 
+        echo '<input  class="btn btn-danger" type="submit" value="Configuración"/>';
         echo '</form>';
+        
       }
-    }  
+
   ?>  
+  </ul>
 	<center>
      <div class="tit">
         <h2 style="color: #; ">Inicio</h2>
