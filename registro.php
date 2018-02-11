@@ -27,11 +27,11 @@
 				mysqli_query($mysqli,"INSERT INTO datos_personales VALUES('', '$name','$mail','$birthdate','$phone',  '$company', '$job', '$days')");
 				//echo 'Se ha registrado con exito';
 				echo ' <script language="javascript">alert("Usuario registrado con éxito");</script> ';
-				
+				header("Location: index.php");
 			}
 			
 		}else{
-			echo 'Las contraseñas no son iguales, intentelo de nuevo';
+	echo '<script language="javascript">alert("Las contraseñas no son iguales, intentelo de nuevo");</script> ';
 		}
 
 	

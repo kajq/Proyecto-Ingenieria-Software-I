@@ -27,16 +27,19 @@
 </head>
 <body background="" style="background-attachment: fixed" >
   <ul>
+    <li><form action="formulario.php">
+          <input class="btn btn-danger" type="submit" value="Editar">
+        </form> 
+    </li>
+    <li>
   <?php  
-    echo $_SESSION['nombre'];
     if($_SESSION['rol']==1){
         echo '<form action="admin.php">'; 
-        echo '<input  class="btn btn-danger" type="submit" value="Configuración"/>';
+        echo '<input  class="btn btn-danger" type="submit" value="Administrar"/>';
         echo '</form>';
-        
       }
-
   ?>  
+  </li>
   </ul>
 	<center>
      <div class="tit">

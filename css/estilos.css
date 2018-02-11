@@ -49,3 +49,8 @@ section#contenido{
 	margin: 2em auto;
 	width: 80%;
 }
+
+img#boton{
+	width: 10px;
+	height: 10px;
+}

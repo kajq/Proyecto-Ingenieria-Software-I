@@ -10,6 +10,7 @@ if (@!$_SESSION['username']) {
     <meta charset="utf-8">
     <title>Admin</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
 
   </head>
 <body data-offset="40" background="images/fondotot.jpg" style="background-attachment: fixed">
@@ -71,8 +72,8 @@ if (@!$_SESSION['username']) {
 						echo "<td>Correo</td>";
 						echo "<td>Password</td>";
 						echo "<td>Rol</td>";
-						echo "<td>Cambiar Rol</td>";
-						echo "<td>Eliminar Usuario</td>";
+						echo "<td>Cambiar</td>";
+						echo "<td>Eliminar</td>";
 					echo "</tr>";
 
 			    
@@ -85,8 +86,8 @@ if (@!$_SESSION['username']) {
 				    	echo "<td>$arreglo[1]</td>";
 				    	echo "<td>$arreglo[2]</td>";
 
-				    	echo "<td><a href='admin.php?id=$arreglo[0]&rol=$arreglo[2]&id_boton=1'><img src='images/actualizar.gif' class='img-rounded'></td>";
-						echo "<td><a href='admin.php?id=$arreglo[0]&id_boton=2'><img src='images/eliminar.png' class='img-rounded'/></a></td>";
+				    	echo "<td><a href='admin.php?id=$arreglo[0]&rol=$arreglo[2]&id_boton=1'><img src='images/actualizar.png' class='img-rounded'></td>";
+						echo "<td><a href='admin.php?id=$arreglo[0]&id_boton=2'><img src='images/eliminar.ol.png' class='img-rounded'/></a></td>";
 						
 
 						
