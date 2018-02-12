@@ -1,6 +1,7 @@
 <?php
   session_start();
-  $isNew=true;
+  $Accion = $_POST['Accion'];
+  //$Accion=true;
   $nombre="";
   $correo="";
   $fecha_nac="";
@@ -11,10 +12,9 @@
   $FK_cod_pregunta="";
   $respuesta="";
   $contrasena="";
-  if (@$_SESSION['username']) {
-    extract($_GET);
+  if ($Accion=="Editar") {
     require("connect_db.php");
-    $isNew=false;
+    //$Accion=false;
     $username = $_SESSION['username'];
     $sql="SELECT dp.nombre, dp.FK_correo, dp.fecha_nac, dp.telefono, dp.empresa, dp.puesto, dp.dias_record, us.FK_cod_pregunta, us.respuesta, us.contrasena FROM datos_personales dp LEFT JOIN usuarios us ON us.correo = dp.FK_correo WHERE dp.FK_correo='$username'";
   //la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
@@ -59,7 +59,6 @@
 <!-- formulario registro -->
 
 <form method="post" action="" >
-  <fieldset>
     <legend  style="font-size: 18pt"><b>Registro</b></legend>
     <div class="form-group">
       <label style="font-size: 14pt"><b>Nombre completo</b>
@@ -105,7 +104,7 @@
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Contraseña</b>
-      <input type="password" name="contraseña" class="form-control"  required value="<?php echo $contraseña?>" placeholder="Ingresa contraseña" /></label>
+      <input type="password" name="contraseña" class="form-control"  required value="<?php echo $contrasena?>" placeholder="Ingresa contraseña" /></label>
     </div>
     <div class="form-group">
       <label style="font-size: 14pt"><b>Confirmar Contraseña</b>
@@ -115,24 +114,24 @@
     </div>
    
 <?php
-echo $isNew;
-  if($isNew==true){
-  echo "<input  class='btn btn-primary' type='submit' name='submit' value='Registrarse'/>";
-		if(isset($_POST['submit'])){
-			require("registro.php");
-		}
+  if($Accion=="Registrar"){
+  echo "<input  class='btn btn-primary' type='submit' name='submit' value='Registrarse'/> " ;
+  if(isset($_POST['submit'])){
+      require("registro.php");
+    }
+  echo "</form>";
+  echo "<form action=\"index.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
+		
   } else {
-  echo "<input  class='btn btn-primary' type='submit' name='update' value='Actualizar'/>";
+  echo "<input  class='btn btn-primary' type='submit' name='update' value='Actualizar'/> </form>";
+  echo "<form action=\"dashboard.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
     if(isset($_POST['update'])){
       require("ejecutaactualizar.php");
     }
   }
 	?>
 <!--Fin formulario registro -->
-</fieldset>
-</form>
-<form action="index.php">
-  <input class="btn btn-danger" type="submit" value="Cancelar"> </form> 
+
 </div>
 		</td>
 		</tr>

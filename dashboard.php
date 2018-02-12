@@ -27,8 +27,8 @@
 </head>
 <body background="" style="background-attachment: fixed" >
   <ul>
-    <li><form action="formulario.php">
-          <input class="btn btn-danger" type="submit" value="Editar">
+    <li><form action="formulario.php" method="POST">
+          <input class="btn btn-danger" type="submit" name="Accion" value="Editar">
         </form> 
     </li>
     <li>

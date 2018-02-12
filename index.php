@@ -33,8 +33,8 @@
 			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Aceptar"></td></form>
       <td width=80 >
         <br>
-        <form action="formulario.php">
-          <input class="btn btn-danger" type="submit" value="Registro">
+        <form action="formulario.php" method="POST">
+          <input class="btn btn-danger" type="submit" name="Accion" value="Registrar">
         </form> 
       </td>   
 		</tr>
