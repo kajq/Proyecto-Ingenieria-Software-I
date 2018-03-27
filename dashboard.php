@@ -27,11 +27,11 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 			<div class="row">
 				<?php
 				include("include/cabecera.php");
-                ?>
+				?>
 			</div>
 		</header>
 
-	<!-- Navbar
+		<!-- Navbar
     ================================================== -->
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -40,7 +40,7 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 						<ul class="nav">
 							<li>
 								<a href="">
-									Tareas de 
+									Tareas de
 									<strong>
 										<?php echo $_SESSION['nombre'];?>
 									</strong>
@@ -57,15 +57,15 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 							}
                             ?>
 							<li>
-							    <form action="formulario.php" method="POST">
+								<form action="formulario.php" method="POST">
 									<input class="btn btn-danger" type="submit" name="Accion" value="Editar" />
-								</form> 
-							<li>
-								<form action="desconectar.php" >
-									<input class="btn btn-danger" type="submit" value="Cerrar Cesión" />
 								</form>
-								<!--<a href="desconectar.php"> Cerrar Cesión </a>-->
-							</li>
+								<li>
+									<form action="desconectar.php">
+										<input class="btn btn-danger" type="submit" value="Cerrar Cesión" />
+									</form>
+									<!--<a href="desconectar.php"> Cerrar Cesión </a>-->
+								</li>
 						</ul>
 					</div><!-- /.nav-collapse -->
 				</div>
@@ -73,15 +73,42 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 		</div>
 
 		<!-- ======================================================================================================================== -->
-		<hr class="soften" />	
-		<footer class="footer">
+
+		<div class="row">
+			<div class="span12">
+				<div class="caption">
+		<!--///////////////////////////////////////////////////Empieza cuerpo del documento interno////////////////////////////////////////////-->
+					<h2> Administración de tareas</h2>
+                    <div class="well well-small">
+                        <div class="tasks">
+                            <div class="task">
+								<div class="modal-form">
+									<form method="post" action="nuevo">
+										<input type="text" name="tarea" class="form-control" required placeholder="Nueva Tarea" />
+										<input type="text" name="responsable" class="form-control" placeholder="Responsalbe" />
+									</form>
+								</div>
+								<a href='dashboard.php?boton="new"'>
+									<img src='images/plus.png' class='img-rounded' />
+								</a>
+							</div>
+                        </div>
+                        <br />
+                    </div>
+<!--///////////////////////////////////////////////////Termina cuerpo del documento interno////////////////////////////////////////////-->
+				</div>
+			</div>
+		</div>
+			<!-- Pie de pagina-->
 			<hr class="soften" />
-			<p>
-				&copy; Copyright Keilor Jiménez
-				<br />
-				<br />
-			</p>
-		</footer>	
-	</div><!-- /container -->
+			<footer class="footer">
+				<hr class="soften" />
+				<p>
+					&copy; Copyright Keilor Jiménez
+					<br />
+					<br />
+				</p>
+			</footer>
+		</div><!-- /container -->
 </body>
 </html>
