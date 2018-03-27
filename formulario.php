@@ -95,7 +95,7 @@
         <?php
             while($f = $res->fetch_object()){
           echo '<option value= ';
-          echo $f->codigo.'"> ';
+          echo $f->codigo.'> ';
           echo  $f->descripcion.' </option>';
         }
         ?>
@@ -115,19 +115,21 @@
    
 <?php
   if($Accion=="Registrar"){
-  echo "<input  class='btn btn-primary' type='submit' name='submit' value='Registrarse'/> " ;
-  if(isset($_POST['submit'])){
-      require("registro.php");
-    }
-  echo "</form>";
+  echo "<input  class='btn btn-primary' type='submit' name='new' value='Registrarse2'/> </form>" ;
   echo "<form action=\"index.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
 		
-  } else {
+  }else if($Accion=="Editar"){
   echo "<input  class='btn btn-primary' type='submit' name='update' value='Actualizar'/> </form>";
   echo "<form action=\"dashboard.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
-    if(isset($_POST['update'])){
+  } else{
+    echo 'Error al registrar';
+    echo header("Location: index.php");
+  }
+  if(isset($_POST['new'])){
+      require("registro.php");
+  }
+  if(isset($_POST['update'])){
       require("ejecutaactualizar.php");
-    }
   }
 	?>
 <!--Fin formulario registro -->
