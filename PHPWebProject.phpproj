@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>PHPWebProject</Name>
@@ -74,6 +74,7 @@
     <Compile Include="ejecutaactualizar.php" />
     <Compile Include="formulario.php" />
     <Compile Include="index.php" />
+    <Compile Include="Insertar.php" />
     <Compile Include="README.md" />
     <Compile Include="registro.php" />
     <Compile Include="taskmanager.sql" />

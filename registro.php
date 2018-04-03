@@ -21,7 +21,6 @@
 				echo ' <script language="javascript">alert("Atencion, ya existe el correo designado para un usuario, verifique sus datos");</script> ';
 			}else{
 
-				//require("connect_db.php");
 //la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
 				$sqlUsuarios = mysqli_query($mysqli,"INSERT INTO usuarios VALUES('$correo','$contraseña',$codigo_pregunta,'$respuesta',2)");
 

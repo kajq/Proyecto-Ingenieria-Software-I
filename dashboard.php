@@ -82,15 +82,26 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
                     <div class="well well-small">
                         <div class="tasks">
                             <div class="task">
+								<h4>
+									Nuevo
+									<a href='dashboard.php?boton="new"'>
+										<img src='images/plus.png' class='img-rounded' />
+									</a>
+								</h4>
 								<div class="modal-form">
-									<form method="post" action="nuevo">
-										<input type="text" name="tarea" class="form-control" required placeholder="Nueva Tarea" />
-										<input type="text" name="responsable" class="form-control" placeholder="Responsalbe" />
+									<form action="insertar.php" method="post">
+										<input type="text" name="detalle" class="form-control" required placeholder="Detalle" />
+										<input type="text" name="propietario" class="form-control" placeholder="Propietario" />
+										<input type="text" name="responsable" class="form-control" placeholder="Responsable" />
+										<input type="date" name="fecha_entrega" class="form-control" placeholder="Fecha Entrega" />
+										<hr />
+										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
+										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
+										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
+										<input class="btn btn-danger" type="submit" name="Guardar" value="Guardar" />
 									</form>
 								</div>
-								<a href='dashboard.php?boton="new"'>
-									<img src='images/plus.png' class='img-rounded' />
-								</a>
+								
 							</div>
                         </div>
                         <br />

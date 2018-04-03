@@ -1,2 +1,2 @@
 <!DOCTYPE html>
-<h1 class="span">TaskManager v1.0</h1>
+<h1 class="span">TaskManager v2.0</h1>
