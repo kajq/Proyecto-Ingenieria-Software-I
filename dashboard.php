@@ -79,9 +79,9 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 				<div class="caption">
 		<!--///////////////////////////////////////////////////Empieza cuerpo del documento interno////////////////////////////////////////////-->
 					<h2> Administración de tareas</h2>
-                    <div class="well well-small">
-                        <div class="tasks">
-                            <div class="task">
+					<div class="well well-small">
+						<div class="tasks">
+							<div class="task">
 								<h4>
 									Nuevo
 									<a href='dashboard.php?boton="new"'>
@@ -95,17 +95,33 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 										<input type="text" name="responsable" class="form-control" placeholder="Responsable" />
 										<input type="date" name="fecha_entrega" class="form-control" placeholder="Fecha Entrega" />
 										<hr />
-										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
-										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
-										<input type="text" name="tarea" class="form-control" placeholder="Tarea.." />
 										<input class="btn btn-danger" type="submit" name="Guardar" value="Guardar" />
 									</form>
 								</div>
-								
 							</div>
-                        </div>
-                        <br />
-                    </div>
+						</div>
+						<br />
+						<?php
+						$sql=("SELECT * FROM tareas WHERE propietario = '$user' or responsable = '$user' ");
+								//la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
+								$query=mysqli_query($mysqli,$sql);
+								while($arreglo=mysqli_fetch_array($query)){
+					echo "<div class='task'>";
+					echo	"<h4>$arreglo[1]";
+
+					echo		"<h4>";
+					echo			"<form action='update.php' method='post'>";
+					echo				"<input type='text' name='detalle' class='form-control' required placeholder='Detalle' value= '$arreglo[1]'/>";
+					echo				"<input type='text' name='propietario' class='form-control' required placeholder='Detalle' value= '$arreglo[2]'/>";
+					echo				"<input type='text' name='responsable' class='form-control' required placeholder='Detalle' value= '$arreglo[3]'/>";
+					echo				"<input type='date' name='fecha_entrega' class='form-control' required placeholder='Detalle' value= '$arreglo[4]'/>";
+					echo			"</form>";
+					echo		"</div>";
+					echo		"<br />";
+			}
+						?>
+						<br />
+					</div>
 <!--///////////////////////////////////////////////////Termina cuerpo del documento interno////////////////////////////////////////////-->
 				</div>
 			</div>

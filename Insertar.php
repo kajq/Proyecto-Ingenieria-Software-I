@@ -10,7 +10,7 @@
  */
 	extract($_POST);
 	require("connect_db.php");
-	$sqlTask = mysqli_query($mysqli,"INSERT INTO tareas VALUES('','$propietario','$responsable','$detalle',$fecha_entrega, 1)");
+	$sqlTask = mysqli_query($mysqli,"INSERT INTO tareas VALUES('', '$detalle', '$propietario','$responsable', '$fecha_entrega', 1)");
 
 	if (!$sqlTask) {
 		echo ' <script language="javascript">alert("Error al insertar tarea: ';
