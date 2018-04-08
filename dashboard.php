@@ -102,6 +102,7 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 											<b>Responsable: </b>
 										</label>
 										<input type="text" name="responsable" class="form-control" placeholder="Correo del Responsable" />
+                    <!--Mejora: Combo con correos registrados y opcion de escribir uno-->
 										<label style="font-size: 14pt">
 											<b>Fecha Entrega: </b>
 										</label>
@@ -126,10 +127,10 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 					if (($arreglo[3]==$user) && ($arreglo[6]==1)){
 						echo "<label style='font-size: 8pt'><b>¿Quieres aceptar esta tarea asignada?</b></label>";
 						echo "<img src='images/alert.png' class='img-rounded' />";
-						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado-5'><img src='images/acept.png' class='img-rounded' /></a>";
-						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado-3'><img src='images/eliminar.png' class='img-rounded' /></a>";
+						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado&estado=5'><img src='images/acept.png' class='img-rounded' /></a>";
+						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado&estado=3'><img src='images/eliminar.png' class='img-rounded' /></a>";
 					}
-					echo			"<form action='update.php?cod=$arreglo[0]&tipo=tarea' method='post'>";
+					echo			"<form action='update.php?cod=$arreglo[0]&tipo=tarea&estado=0' method='post'>";
 					echo				"<label style='font-size: 14pt'><b>Estado: $arreglo[5]</b></label>";
 					echo				"<label style='font-size: 14pt'><b>Tarea: </b></label>";
 					echo				"<input type='text' name='detalle' class='form-control' required placeholder='Detalle' value= '$arreglo[1]'/>";
@@ -140,12 +141,14 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 					echo				"<label style='font-size: 14pt'><b>Fecha de entrega: </b></label>";
 					echo				"<input type='date' name='fecha_entrega' class='form-control' required placeholder='Detalle' value= '$arreglo[4]'/>";
 					echo				"<hr />";
-						$sql_accion=("SELECT * FROM acciones WHERE cod_tarea = $arreglo[0]");
+						$sql_accion=("SELECT `codigo`, `descripcion`, `cod_tarea`,   
+              case when `cod_estado` = 4 then 'checked' else 'unchecked' end 
+              FROM acciones WHERE cod_tarea = $arreglo[0]");
 						$query_accion=mysqli_query($mysqli,$sql_accion);
 						while($acciones=mysqli_fetch_array($query_accion)){
-echo"<input type='checkbox' name='acciones' value=$acciones[0] onchange='update.php?cod=$arreglo[0]&tipo=estado-5' > <input type='text' name='accion' class='form-control' placeholder='Detalle' value='$acciones[1]'/><br>";
+echo"<input type='checkbox' $acciones[3] name='check_acciones[]' value=$acciones[0] onchange=location.href='update.php?cod=$acciones[0]&tipo=accion&estado=$acciones[3]' > <input type='text' name='accion' class='form-control' placeholder='Detalle' value='$acciones[1]'/><br>";
 							}
-					echo				"<input type='text' name='tarea_nueva' class='form-control' required placeholder='Nueva Tarea'/>";
+					echo				"<input type='text' name='tarea_nueva' class='form-control' placeholder='Nueva Tarea'/>";
 					echo				"<input class='btn btn-success' type='submit' name='Guardar' value='Actualizar' />";
 					echo				"<br />";
 					echo			"</form>";
