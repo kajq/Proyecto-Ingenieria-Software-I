@@ -17,15 +17,9 @@
 		echo $mysqli->error;
 		echo '");</script> ';
 		printf("Errormessage1: %s\n", $mysqli->error);
-	} else {/*
-		$sqlDatos= mysqli_query($mysqli,"INSERT INTO datos_personales VALUES('', '$nombre','$correo','$fecha_nac',
-					'$telefono',  '$empresa', '$ocupacion', '$dias_record')");
-		if (!$sqlDatos) {
-			printf("Errormessage1: %s\n", $mysqli->error);
-		} else {*/
+	} else {
 			echo ' <script language="javascript">alert("Tarea registrada con éxito");</script> ';
 			header("Location: dashboard.php");
 		}
-	//}
 
 ?>

@@ -22,16 +22,18 @@
 			echo $mysqli->error;
 			echo '");</script> ';
 			printf("Errormessage1: %s\n", $mysqli->error);
-		} else {/*
-			$sqlDatos= mysqli_query($mysqli,"INSERT INTO datos_personales VALUES('', '$nombre','$correo','$fecha_nac',
-			'$telefono',  '$empresa', '$ocupacion', '$dias_record')");
+		} else {
+			if($tarea_nueva<>""){
+				$sqlDatos= mysqli_query($mysqli,"INSERT INTO acciones VALUES('', '$tarea_nueva', $codigo, 1)");
+			}
 			if (!$sqlDatos) {
-			printf("Errormessage1: %s\n", $mysqli->error);
-			} else {*/
-			echo ' <script language="javascript">alert("Tarea actualizada con éxito");</script> ';
-			header("Location: dashboard.php");
+				printf("Errormessage1: %s\n", $mysqli->error);
+			} else {
+				echo ' <script language="javascript">alert("Tarea actualizada con éxito");</script> ';
+				header("Location: dashboard.php");
+			
 		}
-		//}
+		}
 	} else if($tipo=="estado-5"){
 		$sqlTask = mysqli_query($mysqli,
 		  "UPDATE `tareas` SET `estado`= 5 WHERE codigo = $codigo");

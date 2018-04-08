@@ -140,6 +140,12 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 					echo				"<label style='font-size: 14pt'><b>Fecha de entrega: </b></label>";
 					echo				"<input type='date' name='fecha_entrega' class='form-control' required placeholder='Detalle' value= '$arreglo[4]'/>";
 					echo				"<hr />";
+						$sql_accion=("SELECT * FROM acciones WHERE cod_tarea = $arreglo[0]");
+						$query_accion=mysqli_query($mysqli,$sql_accion);
+						while($acciones=mysqli_fetch_array($query_accion)){
+echo"<input type='checkbox' name='acciones' value=$acciones[0] onchange='update.php?cod=$arreglo[0]&tipo=estado-5' > <input type='text' name='accion' class='form-control' placeholder='Detalle' value='$acciones[1]'/><br>";
+							}
+					echo				"<input type='text' name='tarea_nueva' class='form-control' required placeholder='Nueva Tarea'/>";
 					echo				"<input class='btn btn-success' type='submit' name='Guardar' value='Actualizar' />";
 					echo				"<br />";
 					echo			"</form>";
