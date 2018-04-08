@@ -6054,5 +6054,7 @@ div.tasks {
 
 div.task {
     width: 230px;
-    background-color: grey;
+    background-color: lightgray;
+    margin-left: 30px;
+    margin-bottom: 30px;
 }

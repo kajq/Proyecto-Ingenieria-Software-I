@@ -74,6 +74,7 @@
     <Compile Include="ejecutaactualizar.php" />
     <Compile Include="formulario.php" />
     <Compile Include="index.php" />
+    <Compile Include="update.php" />
     <Compile Include="Insertar.php" />
     <Compile Include="README.md" />
     <Compile Include="registro.php" />

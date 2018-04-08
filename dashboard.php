@@ -90,37 +90,65 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 								</h4>
 								<div class="modal-form">
 									<form action="insertar.php" method="post">
+										<label style="font-size: 14pt">
+											<b>Tarea: </b>
+										</label>
 										<input type="text" name="detalle" class="form-control" required placeholder="Detalle" />
-										<input type="text" name="propietario" class="form-control" placeholder="Propietario" />
-										<input type="text" name="responsable" class="form-control" placeholder="Responsable" />
+										<label style="font-size: 14pt">
+											<b>Propietario: </b>
+										</label>
+										<input type="text" name="propietario" class="form-control" placeholder="Correo del Propietario" />
+										<label style="font-size: 14pt">
+											<b>Responsable: </b>
+										</label>
+										<input type="text" name="responsable" class="form-control" placeholder="Correo del Responsable" />
+										<label style="font-size: 14pt">
+											<b>Fecha Entrega: </b>
+										</label>
 										<input type="date" name="fecha_entrega" class="form-control" placeholder="Fecha Entrega" />
 										<hr />
 										<input class="btn btn-danger" type="submit" name="Guardar" value="Guardar" />
 									</form>
 								</div>
 							</div>
-						</div>
-						<br />
-						<?php
-						$sql=("SELECT * FROM tareas WHERE propietario = '$user' or responsable = '$user' ");
+
+							<br />
+							<?php
+							$sql=("SELECT ta.codigo, ta.detalle, ta.propietario, ta.responsable, ta.fecha, est.descripcion, ta.estado
+								FROM tareas ta
+									left join estados est
+								on est.codigo = ta.estado
+								WHERE propietario = '$user' or responsable = '$user' and ta.estado not in (3,4) ");
 								//la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
 								$query=mysqli_query($mysqli,$sql);
 								while($arreglo=mysqli_fetch_array($query)){
 					echo "<div class='task'>";
-					echo	"<h4>$arreglo[1]";
-
-					echo		"<h4>";
-					echo			"<form action='update.php' method='post'>";
+					if (($arreglo[3]==$user) && ($arreglo[6]==1)){
+						echo "<label style='font-size: 8pt'><b>¿Quieres aceptar esta tarea asignada?</b></label>";
+						echo "<img src='images/alert.png' class='img-rounded' />";
+						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado-5'><img src='images/acept.png' class='img-rounded' /></a>";
+						echo "<a href='update.php?cod=$arreglo[0]&tipo=estado-3'><img src='images/eliminar.png' class='img-rounded' /></a>";
+					}
+					echo			"<form action='update.php?cod=$arreglo[0]&tipo=tarea' method='post'>";
+					echo				"<label style='font-size: 14pt'><b>Estado: $arreglo[5]</b></label>";
+					echo				"<label style='font-size: 14pt'><b>Tarea: </b></label>";
 					echo				"<input type='text' name='detalle' class='form-control' required placeholder='Detalle' value= '$arreglo[1]'/>";
+					echo				"<label style='font-size: 14pt'><b>Propiestario: </b></label>";
 					echo				"<input type='text' name='propietario' class='form-control' required placeholder='Detalle' value= '$arreglo[2]'/>";
-					echo				"<input type='text' name='responsable' class='form-control' required placeholder='Detalle' value= '$arreglo[3]'/>";
+					echo				"<label style='font-size: 14pt'><b>Responsable: </b></label>";
+					echo				"<input type='text' name='responsable' class='form-control' placeholder='Detalle' value= '$arreglo[3]'/>";
+					echo				"<label style='font-size: 14pt'><b>Fecha de entrega: </b></label>";
 					echo				"<input type='date' name='fecha_entrega' class='form-control' required placeholder='Detalle' value= '$arreglo[4]'/>";
+					echo				"<hr />";
+					echo				"<input class='btn btn-success' type='submit' name='Guardar' value='Actualizar' />";
+					echo				"<br />";
 					echo			"</form>";
 					echo		"</div>";
 					echo		"<br />";
 			}
-						?>
-						<br />
+							?>
+							<br />
+						</div>
 					</div>
 <!--///////////////////////////////////////////////////Termina cuerpo del documento interno////////////////////////////////////////////-->
 				</div>
