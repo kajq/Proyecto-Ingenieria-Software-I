@@ -15,6 +15,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="archivo.php" />
     <Compile Include="bootstrap\css\bootstrap-responsive.css" />
     <Compile Include="bootstrap\css\bootstrap-responsive.min.css" />
     <Compile Include="bootstrap\css\bootstrap.css" />

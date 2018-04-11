@@ -12,7 +12,7 @@
   $FK_cod_pregunta="";
   $respuesta="";
   $contrasena="";
-  if ($Accion=="Editar") {
+  if ($Accion==null) {
     require("connect_db.php");
     //$Accion=false;
     $username = $_SESSION['username'];
@@ -115,15 +115,15 @@
    
 <?php
   if($Accion=="Registrar"){
-  echo "<input  class='btn btn-primary' type='submit' name='new' value='Registrarse2'/> </form>" ;
+  echo "<input  class='btn btn-primary' type='submit' name='new' value='Registrarse'/> </form>" ;
   echo "<form action=\"index.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
 		
-  }else if($Accion=="Editar"){
+  }else if($Accion==null){
   echo "<input  class='btn btn-primary' type='submit' name='update' value='Actualizar'/> </form>";
   echo "<form action=\"dashboard.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
   } else{
     echo 'Error al registrar';
-    echo header("Location: index.php");
+    echo 'header("Location: index.php")';
   }
   if(isset($_POST['new'])){
       require("registro.php");
