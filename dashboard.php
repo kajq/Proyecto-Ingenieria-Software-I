@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 session_start();
 if (@!$_SESSION['username']) {
@@ -14,6 +13,7 @@ $datos_usuario=mysqli_fetch_assoc($sql);
 $_SESSION['nombre']=$datos_usuario['nombre'];
 }
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
