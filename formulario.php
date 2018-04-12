@@ -1,7 +1,9 @@
 <?php
   session_start();
   $Accion = $_POST['Accion'];
-  //$Accion=true;
+  if ($Accion==null){
+    $Accion="Editar";
+  }
   $nombre="";
   $correo="";
   $fecha_nac="";
@@ -12,7 +14,7 @@
   $FK_cod_pregunta="";
   $respuesta="";
   $contrasena="";
-  if ($Accion==null) {
+  if ($Accion=="Editar") {
     require("connect_db.php");
     //$Accion=false;
     $username = $_SESSION['username'];
@@ -118,7 +120,7 @@
   echo "<input  class='btn btn-primary' type='submit' name='new' value='Registrarse'/> </form>" ;
   echo "<form action=\"index.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
 		
-  }else if($Accion==null){
+  }else if($Accion=="Editar"){
   echo "<input  class='btn btn-primary' type='submit' name='update' value='Actualizar'/> </form>";
   echo "<form action=\"dashboard.php\"><input class=\"btn btn-danger\" type=\"submit\" value=\"Cancelar\"> </form>";
   } else{

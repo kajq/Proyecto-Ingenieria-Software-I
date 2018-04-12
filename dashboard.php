@@ -121,7 +121,7 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
 						while($acciones=mysqli_fetch_array($query_accion)){
 echo"<input type='checkbox' $acciones[3] name='checkbox_acciones[]' value=$acciones[0] onchange=location.href='update.php?cod=$acciones[0]&tipo=3&valor=$acciones[3]&tarea=$arreglo[0]' > <input type='text' name='detalle_acciones[]' class='form-control' placeholder='Detalle' value='$acciones[1]' onChange='this.form.submit'/><br>";
 							}
-					echo				"<input type='text' name='tarea_nueva' class='form-control' placeholder='Nueva Tarea'onChange='this.form.submit'/>";
+					echo				"<input type='text' name='tarea_nueva' class='form-control' placeholder='Agrega acciones a la tarea'onChange='this.form.submit'/>";
 					echo				"<input class='btn btn-success' type='submit' name='Guardar' value='Actualizar' style='visibility:hidden' />";
 					echo				"<br />";
                     if (($arreglo[3]==$user) && ($arreglo[6]==1)){

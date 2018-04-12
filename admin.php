@@ -37,14 +37,14 @@ if (@!$_SESSION['username']) {
 		</form>
 		<ul class="nav pull-right">
 			<li>
-				<form action="dashboard.php">
-					<input class="btn btn-danger" type="submit" value="Dashboard" />
-				</form>
-			<li>
-				<form action="desconectar.php">
-					<input class="btn btn-danger" type="submit" value="Cerrar Cesión" />
-				</form>
-			</li>			 
+                <a href='dashboard.php'>
+                    <img src='images/volver.png' class='img-rounded' />
+                </a>
+            <li>
+                <a href="desconectar.php">
+                    <img src="images/cerrar.png" class='img-rounded' />
+                </a>   
+            </li>		 
 		</ul>
 	  </div><!-- /.nav-collapse -->
 	</div>
