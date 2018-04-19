@@ -30,13 +30,22 @@
 		<tr><td><label style="font-size: 14pt"><b>Contraseña: </b></label></td>
 			<td witdh=80><input style="border-radius:15px;" type="password" name="pass"></td></tr>
 		<tr>
-			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Aceptar"></td></form>
+			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Aceptar"></td></form>   
       <td width=80 >
-        <br>
-        <form action="formulario.php" method="POST">
-          <input class="btn btn-danger" type="submit" name="Accion" value="Registrar">
-        </form> 
-      </td>   
+                
+      </td>  
+      <tr>
+      	<td>
+				<form action="formulario.php" method="POST">
+          			<input class="btn btn-danger" type="submit" name="Accion" value="Registrar">
+        		</form> 
+        	</td>
+        	<td>
+		        <form action="olvido_pass.php" method="POST">
+		          <input class="btn btn-primary" type="submit" name="Accion" value="Olvido Contraseña">
+		        </form> 
+		    </td> 
+      </tr> 
 		</tr>
 	
 </body>
