@@ -3,45 +3,68 @@
 <head>
 <title>Olvido contraseña</title>
 <!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<meta charset="utf-8">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="estilos/estilos.css">
 <!-- Custom Theme files -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <meta name="keywords" content="" />
 </head>
-<body>
+<body background="images/fondotot.jpg" style="background-attachment: fixed"		>
 <!--coact start here-->
-<h1>Formulario recuperación</h1>
-<div class="contact">
-	<div class="contact-main">
+
+<center> <div class="tit"> <h2 style="color: #; ">Formulario recuperación</h2>
+	<center> <div class="Ingreso">
+	<table border="0" align="center" valign="middle">
+		<tr>
+		<td rowspan=2>
+	<!-- formulario recuperación -->
 	<form method="post">
-		<h3>Tu correo electrónico</h3>
-		<input type="email" placeholder="your@email.com" class="hola"  name="customer_email" required />
-		
-		<h3>Tu respuesta secreta</h3>
-		<input type="text" placeholder="Nombre" class="hola"  name="customer_name" required />
-		<h3>Asunto</h3>
-		<input type="text" placeholder="Asunto" class="hola"  name="subject" required />
-		<h3>Mensaje</h3>
-		<textarea  name="message" placeholder="Leave your message here ...." required /></textarea>
+		<div class="form-group">
+		<h3>Correo electrónico</h3>
+		<input type="email" placeholder="tu@email.com" class="form-group has-success" style="border-radius:15px;"  name="customer_email" required />
+		</div>
+		<div class="form-group">
+		<h3>Respuesta secreta</h3>
+		<input type="text" placeholder="Respuesta" class="form-group has-success" style="border-radius:15px;"  name="respuesta" required />
+		</div>
+		<div class="form-group">
+		<h3>Fecha nacimiento</h3>
+		<input type="date" class="form-group has-success" style="border-radius:15px;"  name="date" />
+		</div>
+		<div class="form-group">
 		<?php
 			if (isset($_POST['send'])){
-				include("sendemail.php");//Mando a llamar la funcion que se encarga de enviar el correo electronico
-				
+				require("connect_db.php");
+			$sql=("SELECT us.correo, us.contrasena, us.respuesta, dat.nombre, dat.fecha_nac FROM usuarios us 
+					LEFT JOIN datos_personales dat 
+						on dat.FK_correo = us.correo
+				WHERE us.correo = '$_POST[customer_email]' ");
+			$query=mysqli_query($mysqli,$sql);
+			while($arreglo=mysqli_fetch_array($query)){
+			if($arreglo[2] == $_POST['respuesta'] && $arreglo[4] = $_POST['date']){
+				include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
 				/*Configuracion de variables para enviar el correo*/
-				$mail_username="taskmanagerV2.0@gmail.com";//Correo electronico saliente ejemplo: tucorreo@gmail.com
+				$mail_username="taskmanagerV2.0@gmail.com";//Correo electronico saliente 
 				$mail_userpassword="207360344";//Tu contraseña de gmail
-				$mail_addAddress="keilorjimenez95@gmail.com";//correo electronico que recibira el mensaje
+				$mail_addAddress=$_POST['customer_email'];//correo electronico que recibira el mensaje
 				$template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
 				
 				/*Inicio captura de datos enviados por $_POST para enviar el correo */
-				$mail_setFromEmail=$_POST['customer_email'];
-				$mail_setFromName=$_POST['customer_name'];
-				$txt_message=$_POST['message'];
-				$mail_subject=$_POST['subject'];
+				$mail_setFromEmail= $arreglo[0];
+				$mail_setFromName= $arreglo[3];
+				$txt_message="Se ha solicitado recuperar su contraseña. Por favor ingresa al sistema y realiza el cambio de contraseña para terminar el proceso.   Su contraseña actual es: $arreglo[1]";
+				$mail_subject="Recuperación de contraseña";
 				
 				sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+
+				} else {
+					echo ' <script language="javascript">alert("Datos no concuerdan con ninguna cuenta, intentalo de nuevo");</script> ';
+				}
+			}
 			}
 		?>
 	</div>
@@ -50,7 +73,7 @@
 			
 		</div>
         <div class="contact-enviar">
-		  <input type="submit" value="Enviar mensaje" name="send">
+		  <input class='btn btn-primary' type="submit" value="Enviar mensaje" name="send">
 		</div>
 		<div class="clear"> </div>
 		</form>

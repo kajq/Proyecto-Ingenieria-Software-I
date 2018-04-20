@@ -61,7 +61,6 @@
 <!-- formulario registro -->
 
 <form method="post" action="" >
-    <legend  style="font-size: 18pt"><b>Registro</b></legend>
     <div class="form-group">
       <label style="font-size: 14pt"><b>Nombre completo</b>
       <input type="text" name="nombre" class="form-control" required value="<?php echo $nombre?>" placeholder="Ingresa tu nombre" /></label>
