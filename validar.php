@@ -14,13 +14,14 @@ session_start();
 
 	//la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
 	$sql2=mysqli_query($mysqli,
-		"SELECT correo, contrasena, rol 
+		"SELECT correo, contrasena, rol, estado 
 		FROM usuarios 
 		WHERE correo='$user'");
 	if($f2=mysqli_fetch_assoc($sql2)){
 		if($pass==$f2['contrasena']){
 			$_SESSION['username']=$f2['correo'];
 			$_SESSION['rol']=$f2['rol'];
+			$_SESSION['estado']=$f2['estado'];
 
 			if($f2['rol']=='1'){
 				echo '<script>alert("BIENVENIDO ADMINISTRADOR")</script> ';

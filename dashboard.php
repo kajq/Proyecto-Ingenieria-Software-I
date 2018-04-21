@@ -11,6 +11,10 @@ printf("Errormessage1: %s\n", $mysqli->error);
 } else {
 $datos_usuario=mysqli_fetch_assoc($sql);
 $_SESSION['nombre']=$datos_usuario['nombre'];
+if ($_SESSION['estado'] == 2){
+	echo '<script> $cf=confirm("Es necesario cambiar la contraseña"); </script>';
+	
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -64,6 +68,11 @@ $_SESSION['nombre']=$datos_usuario['nombre'];
                             <li>
                                 <a href='archivo.php'>
                                     <img src='images/archivo.png' class='img-rounded' />
+                                </a>
+                            </li>
+                            <li>
+                                <a href='pass_change.php'>
+                                    <img src='images/pass.png' class='img-rounded' />
                                 </a>
                             </li>
 							<li>

@@ -45,21 +45,27 @@
 				WHERE us.correo = '$_POST[customer_email]' ");
 			$query=mysqli_query($mysqli,$sql);
 			while($arreglo=mysqli_fetch_array($query)){
-			if($arreglo[2] == $_POST['respuesta'] && $arreglo[4] = $_POST['date']){
+			if($arreglo[2] == $_POST['respuesta'] && $arreglo[4] == $_POST['date']){
+				//Genero la nueva contraseña
+				$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
+				$sqlTask = mysqli_query($mysqli,
+					"UPDATE `usuarios` SET `estado`=2, contrasena = '$random_string' WHERE correo = '$_POST[customer_email]'");
+		if (!$sqlTask) {
+			echo ' <script language="javascript">alert("Error al Actualizar tarea: ';
+			echo $mysqli->error;
+			echo '");</script> ';
+			printf("Errormessage1: %s\n", $mysqli->error);
+		}
 				include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
-				/*Configuracion de variables para enviar el correo*/
-				$mail_username="taskmanagerV2.0@gmail.com";//Correo electronico saliente 
-				$mail_userpassword="207360344";//Tu contraseña de gmail
 				$mail_addAddress=$_POST['customer_email'];//correo electronico que recibira el mensaje
 				$template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
-				
 				/*Inicio captura de datos enviados por $_POST para enviar el correo */
 				$mail_setFromEmail= $arreglo[0];
 				$mail_setFromName= $arreglo[3];
-				$txt_message="Se ha solicitado recuperar su contraseña. Por favor ingresa al sistema y realiza el cambio de contraseña para terminar el proceso.   Su contraseña actual es: $arreglo[1]";
+				$txt_message="Se ha solicitado recuperar su contraseña. Por favor ingresa al sistema y realiza el cambio de contraseña para terminar el proceso.   Su contraseña actual es: $random_string";
 				$mail_subject="Recuperación de contraseña";
 				
-				sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+				sendemail($mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
 
 				} else {
 					echo ' <script language="javascript">alert("Datos no concuerdan con ninguna cuenta, intentalo de nuevo");</script> ';
@@ -76,6 +82,11 @@
 		  <input class='btn btn-primary' type="submit" value="Enviar mensaje" name="send">
 		</div>
 		<div class="clear"> </div>
+		</form>
+		<form action="index.php">
+			<div class="contact-enviar">
+		  		<input class='btn btn-danger' type="submit" value="Cancelar">
+			</div>
 		</form>
 </div>
 </div>
