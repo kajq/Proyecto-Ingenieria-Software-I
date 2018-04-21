@@ -5,15 +5,17 @@ if (@!$_SESSION['username']) {
 }
 require("connect_db.php");
 $user=$_SESSION['username'];
-$sql=mysqli_query($mysqli, "SELECT nombre FROM datos_personales where FK_correo = '$user'");
+$sql=mysqli_query($mysqli, "SELECT dat.nombre, us.estado FROM datos_personales dat
+left join usuarios us
+on dat.FK_correo = us.correo
+ where FK_correo = '$user'");
 if (!$sql) {
 printf("Errormessage1: %s\n", $mysqli->error);
 } else {
 $datos_usuario=mysqli_fetch_assoc($sql);
 $_SESSION['nombre']=$datos_usuario['nombre'];
-if ($_SESSION['estado'] == 2){
+if ($datos_usuario['estado'] == 2){
 	echo '<script> $cf=confirm("Es necesario cambiar la contraseña"); </script>';
-	
 	}
 }
 ?>

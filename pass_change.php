@@ -27,35 +27,36 @@ $usuario = $_SESSION['username'];
 <form method="post" action="" >
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Correo electronico</b>
-      <input type="text" name="correo" class="form-control"  required value="<?php echo $usuario?>" disabled/></label>
+      <input type="text" name="correo" class="form-control"  value="<?php echo $usuario?>" disabled/></label>
     </div>
     <div class="form-group">
       <label style="font-size: 14pt"><b>Contraseña anterior</b>
-      <input type="password" name="pre-pass" class="form-control" required /></label>
+      <input type="password" name="pre-pass" class="form-control"  /></label>
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Nueva Contraseña  </b>
-      <input type="password" name="new_pass" class="form-control"  required /></label>
+      <input type="password" name="new_pass" class="form-control"   /></label>
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Confirmar Contraseña</b>
-      <input type="password" name="rnew_pass" class="form-control"  required /></label>
+      <input type="password" name="rnew_pass" class="form-control"   /></label>
     </div>
    <div>
      <input  class='btn btn-primary' type='submit' value='Aceptar' name= 'cambiar'/> 
+     <input  class='btn btn-danger' type='submit' value='Volver' name= 'salir'/> 
    </div>
-</form>";
+</form>
 
 <?php
+$isChange= 0;
   if(isset($_POST['cambiar'])){
       require("connect_db.php");
-      $sql=("SELECT contrasena FROM usuarios WHERE correo = '$usuario' ");
+      $sql=("SELECT contrasena, estado FROM usuarios WHERE correo = '$usuario' ");
       $query=mysqli_query($mysqli,$sql);
       while($arreglo=mysqli_fetch_array($query)){
       if($_POST['pre-pass'] == $arreglo[0] && $_POST['new_pass'] == $_POST['rnew_pass']){
         $sqlTask = mysqli_query($mysqli,
-          "UPDATE usuarios SET contrasena = '$_POST[new_pass]' WHERE correo = '$usuario'");
-        echo '<script> "Contraseña actualizada exitosamente"; </script>';
+          "UPDATE usuarios SET contrasena = '$_POST[new_pass]', estado = 1 WHERE correo = '$usuario'");
         include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
         $mail_addAddress=$usuario;//correo electronico que recibira el mensaje
         $template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
@@ -66,6 +67,7 @@ $usuario = $_SESSION['username'];
         $mail_subject="Se restablecio contraseña";
         
         sendemail($mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+        $isChange = 1;
     if (!$sqlTask) {
       echo ' <script language="javascript">alert("Error al Actualizar contraseña: ';
       echo $mysqli->error;
@@ -77,6 +79,9 @@ $usuario = $_SESSION['username'];
                     }
                                                                                         }
   } 
+  if(isset($_POST['salir'])){
+    header("Location: dashboard.php");  
+  }
 	?>
 <!--Fin formulario registro -->
 </div>

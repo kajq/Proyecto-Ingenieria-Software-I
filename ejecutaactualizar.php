@@ -5,7 +5,6 @@ $isNew=true;
   $dias_record="";
   $FK_cod_pregunta="";
   $respuesta="";
-  $contrasena="";
 
 extract($_POST);	//extraer todos los valores del metodo post del formulario de actualizar
 	require("connect_db.php");
