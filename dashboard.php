@@ -119,7 +119,7 @@ if ($datos_usuario['estado'] == 2){
 					echo				"<label style='font-size: 14pt'><b>Tarea: </b></label>";
 					echo				"<input type='text' name='detalle' class='form-control' required placeholder='Detalle' value= '$arreglo[1]' onChange='this.form.submit'/>";
 					echo				"<label style='font-size: 14pt'><b>Propiestario: </b></label>";
-					echo				"<input type='text' name='propietario' class='form-control' required placeholder='Propietario' value= '$arreglo[2]' onChange='this.form.submit'/>";
+					echo				"<input type='text' name='propietario' class='form-control' required placeholder='Propietario' value= '$arreglo[2]' disabled onChange='this.form.submit'/>";
 					echo				"<label style='font-size: 14pt'><b>Responsable: </b></label>";
 					echo				"<input type='text' name='responsable' class='form-control' placeholder='Responsable' value= '$arreglo[3]' onChange='this.form.submit'/>";
 					echo				"<label style='font-size: 14pt'><b>Fecha de entrega: </b></label>";
@@ -167,12 +167,21 @@ echo"<input type='checkbox' $acciones[3] name='checkbox_acciones[]' value=$accio
                                         <label style="font-size: 14pt">
                                             <b>Propietario: </b>
                                         </label>
-                                        <input type="text" name="propietario" class="form-control" required placeholder="Correo del Propietario" />
+                                        <input type="text" name="propietario" class="form-control" value="<?php echo $user?>"  />
                                         <label style="font-size: 14pt">
                                             <b>Responsable: </b>
                                         </label>
-                                        <input type="text" name="responsable" class="form-control" placeholder="Correo del Responsable" />
-                                        <!--Mejora: Combo con correos registrados y opcion de escribir uno-->
+                                        <select name="responsable">
+									        <option value="">Seleccionar</option>
+									        <?php
+									        $res = $mysqli->query("SELECT * FROM datos_personales");
+									            while($f = $res->fetch_object()){
+									          echo '<option value= ';
+									          echo $f->FK_correo.'> ';
+									          echo  $f->FK_correo.' </option>';
+									        }
+									        ?>
+									     </select>
                                         <label style="font-size: 14pt">
                                             <b>Fecha Entrega: </b>
                                         </label>

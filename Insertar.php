@@ -18,7 +18,18 @@
 		echo '");</script> ';
 		printf("Errormessage1: %s\n", $mysqli->error);
 	} else {
-			echo ' <script language="javascript">alert("Tarea registrada con éxito");</script> ';
+			if($responsable != ""){
+				include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
+				$mail_addAddress=$responsable;//correo electronico que recibira el mensaje
+				$template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
+				/*Inicio captura de datos enviados por $_POST para enviar el correo */
+				$mail_setFromEmail= $responsable;
+				$mail_setFromName= "Usuario";
+				$txt_message="El usuario $propietario le ha asignado una tarea con el detalle [ $detalle ] con fecha limite [ $fecha_entrega ] en el sistema TaskManager, le invitamos a ingresar en el sistema para poder darle seguimiento a esta tarea";
+				$mail_subject="Tarea nueva asignada";
+				
+				sendemail($mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+			}
 			header("Location: dashboard.php");
 		}
 
