@@ -72,7 +72,7 @@ if (@!$_SESSION['username']) {
                 <div class="caption">
 
                     <!--///////////////////////////////////////////////////Empieza cuerpo del documento interno////////////////////////////////////////////-->
-                    <h2> Administraciónn de tareas archivadas</h2>
+                    <h2> Administración de tareas archivadas</h2>
                     <div class="well well-small">
                         <hr class="soft" />
                         <h4>Tareas Cerradas</h4>

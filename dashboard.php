@@ -121,7 +121,7 @@ if ($datos_usuario['estado'] == 2){
 					echo				"<label style='font-size: 14pt'><b>Propiestario: </b></label>";
 					echo				"<input type='text' name='propietario' class='form-control' required placeholder='Propietario' value= '$arreglo[2]' disabled onChange='this.form.submit'/>";
 					echo				"<label style='font-size: 14pt'><b>Responsable: </b></label>";
-					echo				"<input type='text' name='responsable' class='form-control' placeholder='Responsable' value= '$arreglo[3]' onChange='this.form.submit'/>";
+					echo				"<input type='email' name='responsable' class='form-control' placeholder='Responsable' value= '$arreglo[3]' onChange='this.form.submit'/>";
 					echo				"<label style='font-size: 14pt'><b>Fecha de entrega: </b></label>";
 					echo				"<input type='date' name='fecha_entrega' class='form-control' required  value= '$arreglo[4]' onChange='this.form.submit'/>";
 					echo				"<hr />";
@@ -147,49 +147,37 @@ echo"<input type='checkbox' $acciones[3] name='checkbox_acciones[]' value=$accio
                     }
 					echo			"</form>";
 					echo		"</div>";
-					echo		"<br />";
 			}
                             ?>
-							<br />
                             <div class="task">
+                            	<form action="insertar.php" method="post">
                                 <h4>
                                     Nuevo
                                     <a href='dashboard.php?n="hidden"'>
                                         <img src='images/plus.png' class='img-rounded' />
                                     </a>
                                 </h4>
-                                <div class="modal-form" >
-                                    <form action="insertar.php" method="post">
-                                        <label style="font-size: 14pt">
-                                            <b>Tarea: </b>
-                                        </label>
-                                        <input type="text" name="detalle" class="form-control" required placeholder="Detalle" />
-                                        <label style="font-size: 14pt">
-                                            <b>Propietario: </b>
-                                        </label>
-                                        <input type="text" name="propietario" class="form-control" value="<?php echo $user?>"  />
-                                        <label style="font-size: 14pt">
-                                            <b>Responsable: </b>
-                                        </label>
-                                        <select name="responsable">
-									        <option value="">Seleccionar</option>
-									        <?php
-									        $res = $mysqli->query("SELECT * FROM datos_personales");
-									            while($f = $res->fetch_object()){
-									          echo '<option value= ';
-									          echo $f->FK_correo.'> ';
-									          echo  $f->FK_correo.' </option>';
-									        }
-									        ?>
-									     </select>
-                                        <label style="font-size: 14pt">
-                                            <b>Fecha Entrega: </b>
-                                        </label>
-                                        <input type="date" name="fecha_entrega" class="form-control" required placeholder="Fecha Entrega" />
-                                        <hr />
-                                        <input class="btn btn-danger" type="submit" name="Guardar" value="Guardar" />
-                                    </form>
-                                </div>
+	                                <label style="font-size: 14pt">
+	                                    <b>Tarea: </b>
+	                                </label>
+	                                <input type="text" name="detalle" class="form-control" required placeholder="Detalle" />
+	                                <label style="font-size: 14pt">
+	                                    <b>Propietario: </b>
+	                                </label>
+	                                <input type="text" name="propietario" class="form-control" ReadOnly value="<?php echo $user?>"  />
+	                                <label style="font-size: 14pt">
+	                                    <b>Responsable: </b>
+	                                </label>
+	                                <input type="email" name="responsable" class="form-control" placeholder="alguien@gmail.com" /></option>
+								     </select>
+	                                <label style="font-size: 14pt">
+	                                    <b>Fecha Entrega: </b>
+	                                </label>
+	                                <input type="date" name="fecha_entrega" class="form-control" required placeholder="Fecha Entrega" />
+	                                <hr />
+	                                <input class="btn btn-danger" type="submit" name="Guardar" value="Guardar" />
+	                            </form>
+	                       
                             </div>
 						</div>
 					</div>

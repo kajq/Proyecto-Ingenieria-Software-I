@@ -1,9 +1,14 @@
 <?php
   session_start();
-  $Accion = $_POST['Accion'];
-  if ($Accion==null){
+  if (@!$_SESSION['username']) {
+    $Accion="Registrar";
+  } else {
     $Accion="Editar";
   }
+  /*$Accion = $_POST['Accion'];
+  if (!$_POST['Accion']){
+    $Accion="Editar";
+  }*/
   $nombre="";
   $correo="";
   $fecha_nac="";
@@ -48,7 +53,7 @@
 		<link rel="stylesheet" type="text/css" href="estilos/estilos.css">
 	<title>Formulario</title>
 </head>
-<body background="" style="background-attachment: fixed" >
+<body background="images/fondotot.jpg" style="background-attachment: fixed" >
 	<center><div class="tit"><h2 style="color: #; ">Formulario de usuario</h2>
 		<center><div class="Ingreso">
 

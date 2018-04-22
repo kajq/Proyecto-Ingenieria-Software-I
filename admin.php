@@ -76,7 +76,6 @@ if (@!$_SESSION['username']) {
 			echo "<table border='1'; class='table table-hover';>";
 			echo "<tr class='warning'>";
 			echo "<td>Correo</td>";
-			echo "<td>Password</td>";
 			echo "<td>Rol</td>";
 			echo "<td>Cambiar</td>";
 			echo "<td>Eliminar</td>";
@@ -85,7 +84,6 @@ if (@!$_SESSION['username']) {
 			while($arreglo=mysqli_fetch_array($query)){
 				echo "<tr class='success'>";
 				echo "<td>$arreglo[0]</td>";
-				echo "<td>$arreglo[1]</td>";
 				echo "<td>$arreglo[2]</td>";
 
 				echo "<td><a href='admin.php?id=$arreglo[0]&rol=$arreglo[2]&id_boton=1'><img src='images/actualizar.png' class='img-rounded'></td>";
@@ -107,7 +105,6 @@ if (@!$_SESSION['username']) {
 					printf("Errormessage1: %s\n", $mysqli->error);
 				} else {
 					echo '<script>alert("Se ha editado los administradores")</script> ';
-					//header('Location: proyectos.php');
 					echo "<script>location.href='admin.php'</script>";
 				}
 			}
@@ -115,15 +112,14 @@ if (@!$_SESSION['username']) {
 				$sqlborrarDatos="DELETE FROM datos_personales WHERE FK_correo='$id'";
 				$resborrarDatos=mysqli_query($mysqli,$sqlborrarDatos);
 				if (!$resborrarDatos) {
-					printf("Errormessage1: %s\n", $mysqli->error);
+					echo '<script>alert("No se puede eliminar este registro. Verifique si el usuario tiene tareas")</script> ';
 				}else {
 					$sqlborrarUsuario="DELETE FROM usuarios WHERE correo='$id'";
 					$resborrarUsuario=mysqli_query($mysqli,$sqlborrarUsuario);
 					if (!$resborrarUsuario) {
-						printf("Errormessage2: %s\n", $mysqli->error);
+						echo '<script>alert("No se puede eliminar este registro. Verifique si el usuario tiene tareas. Error: $mysqli->error")</script> ';
 					} else {
-						echo '<script>alert("REGISTRO ELIMINADO")</script> ';
-						//header('Location: proyectos.php');
+						echo '<script>alert("Usuario ELIMINADO")</script> ';
 						echo "<script>location.href='admin.php'</script>";
 					}
 				}

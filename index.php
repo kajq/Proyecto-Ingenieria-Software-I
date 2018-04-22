@@ -1,8 +1,7 @@
 <?php
-  require("connect_db.php");
+  /*require("connect_db.php");
   $mysqli->set_charset("utf8");
-  $res = $mysqli->query("SELECT * FROM preguntas");
-  
+  $res = $mysqli->query("SELECT * FROM preguntas");*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,34 +18,27 @@
 		<center><div class="Ingreso">
 
 	<table border="0" align="center" valign="middle">
-		<tr>
-		<td rowspan=2>
 		<form action="validar.php" method="post">
-
-		<table border="0">
-
-		<tr><td><label style="font-size: 14pt"><b>Correo: </b></label></td>
-			<td width=80> <input class="form-group has-success" style="border-radius:15px;" type="text" name="mail"></td></tr>
-		<tr><td><label style="font-size: 14pt"><b>Contraseña: </b></label></td>
+		<tr>
+			<td><label style="font-size: 14pt"><b>Correo: </b></label></td>
+			<td><input class="form-group has-success" style="border-radius:15px;" type="text" name="mail"></td>
+		</tr>
+		<tr>
+			<td><label style="font-size: 14pt"><b>Contraseña: </b></label></td>
 			<td witdh=80><input style="border-radius:15px;" type="password" name="pass"></td></tr>
 		<tr>
-			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Aceptar"></td></form>   
-      <td width=80 >
-                
-      </td>  
-      <tr>
-      	<td>
+			<td width=80 align=center><input class="btn btn-primary" type="submit" value="Ingresar">
+			</td></form>   
+      		<td height="120" align=center>
 				<form action="formulario.php" method="POST">
-          			<input class="btn btn-danger" type="submit" name="Accion" value="Registrar">
+          			<input class="btn btn-danger" type="submit" name="Accion" value="Registrarse">
         		</form> 
-        	</td>
-        	<td>
 		        <form action="olvido_pass.php" method="POST">
-		          <input class="btn btn-primary" type="submit" name="Accion" value="Olvido Contraseña">
+		          <input class="btn btn-danger" type="submit" name="Accion" value="Recuperar Cuenta">
 		        </form> 
 		    </td> 
-      </tr> 
-		</tr>
+      	</tr> 
+	</table>
 	
 </body>
 </html>

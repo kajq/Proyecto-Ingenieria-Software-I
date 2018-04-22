@@ -17,7 +17,7 @@
 
     if ($tipo==1){
 		$sqlTask = mysqli_query($mysqli,
-			"UPDATE `tareas` SET `detalle`='$detalle',`propietario`='$propietario',`responsable`='$responsable',
+			"UPDATE `tareas` SET `detalle`='$detalle',`responsable`='$responsable',
 			`fecha`='$fecha_entrega' WHERE codigo = $codigo");
 		if (!$sqlTask) {
 			echo ' <script language="javascript">alert("Error al Actualizar tarea: ';
@@ -46,6 +46,29 @@
         }
 	} else if($tipo==2){
 		$sqlTask = mysqli_query($mysqli, "UPDATE `tareas` SET `estado`= $valor WHERE codigo = $codigo");
+        $sql_accion=("SELECT codigo, detalle, propietario, responsable, fecha FROM tareas WHERE codigo = $codigo");
+		$query_accion=mysqli_query($mysqli,$sql_accion);
+		while($task=mysqli_fetch_array($query_accion)){
+            if($valor == 5){
+            	//valor=5 acepta la tarea
+	        	$txt_message="El usuario $task[3] ACEPTO realizar la tarea con el detalle [ $task[1] ] con fecha limite [ $task[4] ] en el sistema de tareas, le invitamos a ingresar en el sistema para poder darle seguimiento a esta tarea";
+	        } else if($valor == 3) {
+	        	//valor=3 cancela la tarea
+	        	$txt_message="El usuario $task[3] RECHAZO realizar la tarea con el detalle [ $task[1] ] con fecha limite [ $task[4] ] en el sistema de tareas, le invitamos a ingresar en el sistema para poder reiniciar la tarea y asignar un nuevo responsable si lo desea o eliminar la tarea definitivamente.";
+	        } else if($valor == 6) {
+	        //valor=6 Finaliza la tarea
+	        	$txt_message="El usuario $task[3] FINALIZO la tarea con el detalle [ $task[1] ] con fecha limite [ $task[4] ] en el sistema de tareas. Si no esta conforme con el trabajo le invitamos a ingresar en el sistema para poder reiniciar la tarea y asignar un nuevo responsable si lo desea o eliminar la tarea definitivamente.";
+	        }
+			include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
+            $mail_addAddress=$task[2];//correo electronico que recibira el mensaje
+			$template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
+			/*Inicio captura de datos enviados por $_POST para enviar el correo */
+			$mail_setFromEmail= $task[2];
+			$mail_setFromName= "Usuario";
+			$mail_subject="Cambio de estado de tarea";
+
+			sendemail($mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+		}
 
 	} else if($tipo==3){
         if($valor=='checked'){$valor=1;}else{$valor=4;}
