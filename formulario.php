@@ -5,10 +5,6 @@
   } else {
     $Accion="Editar";
   }
-  /*$Accion = $_POST['Accion'];
-  if (!$_POST['Accion']){
-    $Accion="Editar";
-  }*/
   $nombre="";
   $correo="";
   $fecha_nac="";
@@ -22,7 +18,7 @@
     require("connect_db.php");
     //$Accion=false;
     $username = $_SESSION['username'];
-    $sql="SELECT dp.nombre, dp.FK_correo, dp.fecha_nac, dp.telefono, dp.empresa, dp.puesto, dp.dias_record, us.FK_cod_pregunta FROM datos_personales dp LEFT JOIN usuarios us ON us.correo = dp.FK_correo WHERE dp.FK_correo='$username'";
+    $sql="SELECT dp.nombre, dp.FK_correo, dp.fecha_nac, dp.telefono, dp.empresa, dp.puesto, dp.dias_record, us.FK_cod_pregunta, us.respuesta FROM datos_personales dp LEFT JOIN usuarios us ON us.correo = dp.FK_correo WHERE dp.FK_correo='$username'";
   //la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
     $ressql=mysqli_query($mysqli,$sql);
     if (!$ressql) {
@@ -37,6 +33,7 @@
           $ocupacion=$row[5];
           $dias_record=$row[6];
           $FK_cod_pregunta=$row[7];
+          $respuesta=$row[8];
         }
   }
   require("connect_db.php");
@@ -69,7 +66,7 @@
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Correo electronico</b>
-      <input type="text" name="correo" class="form-control"  required value="<?php echo $correo?>" placeholder="Ingresa correo"/></label>
+      <input type="text" name="correo"  ReadOnly class="form-control"  required value="<?php echo $correo?>" placeholder="Ingresa correo"/></label>
     </div>
     <div class="form-group">
       <label style="font-size: 14pt; color: #;"><b>Fecha de nacimiento</b>
@@ -97,13 +94,15 @@
         <option value="">Seleccionar</option>
         <?php
             while($f = $res->fetch_object()){
-          echo '<option value= ';
+          if ($FK_cod_pregunta == $f->codigo)
+               {echo '<option selected value= ';} 
+          else {echo '<option value= ';}
           echo $f->codigo.'> ';
           echo  $f->descripcion.' </option>';
         }
         ?>
       </select>
-      <input type="text" name="respuesta" class="form-control"  required placeholder="Respuesta"/>
+      <input type="text" name="respuesta" class="form-control"  required value="<?php echo $respuesta?>" placeholder="Respuesta"/>
     </div>
       
     </div>

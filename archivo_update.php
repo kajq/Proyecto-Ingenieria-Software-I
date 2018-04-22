@@ -39,7 +39,7 @@
     	          }
            }
         } else {
-            echo '<script>confirm("Solo el propietario de la tarea puede eliminar la tarea");</script> ';
+            echo '<script>if (confirm("Solo el propietario de la tarea puede eliminar la tarea")) {};</script> ';
         }
     }
     header('Location: archivo.php');
