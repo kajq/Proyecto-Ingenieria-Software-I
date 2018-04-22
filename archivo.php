@@ -15,7 +15,8 @@ if (@!$_SESSION['username']) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+
     <title>Archivo</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -51,11 +52,11 @@ if (@!$_SESSION['username']) {
                         <ul class="nav pull-right">
                             <li>
                                 <a href='dashboard.php'>
-                                    <img src='images/volver.png' class='img-rounded' />
+                                    <img src='images/volver.png' title="Volver" class='img-rounded' />
                                 </a>
                             <li>
                                 <a href="desconectar.php">
-                                    <img src="images/cerrar.png" class='img-rounded' />
+                                    <img src="images/cerrar.png" title="Cerrar Sesion" class='img-rounded' />
                                 </a>   
                             </li>
                         </ul>
@@ -72,7 +73,7 @@ if (@!$_SESSION['username']) {
                 <div class="caption">
 
                     <!--///////////////////////////////////////////////////Empieza cuerpo del documento interno////////////////////////////////////////////-->
-                    <h2> Administración de tareas archivadas</h2>
+                    <h2> Administracion de tareas archivadas</h2>
                     <div class="well well-small">
                         <hr class="soft" />
                         <h4>Tareas Cerradas</h4>
@@ -178,7 +179,7 @@ if (@!$_SESSION['username']) {
 
             <hr class="soften" />
             <p>
-                &copy; Copyright Keilor Jiménez
+                &copy; Copyright Keilor Jimenez
                 <br />
                 <br />
             </p>

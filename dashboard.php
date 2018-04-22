@@ -18,12 +18,15 @@ if ($datos_usuario['estado'] == 2){
 	echo '<script> $cf=confirm("Es necesario cambiar la contraseña"); </script>';
 	}
 }
-echo $_SERVER["REMOTE_ADDR"]; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="keywords" content="" />
 	<title>Tareas</title>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -59,28 +62,28 @@ echo $_SERVER["REMOTE_ADDR"];
                             <?php
 							if($_SESSION['rol']==1){
 								echo '<li> <a href="admin.php">';
-								echo    ' <img src="images/admin.png" class="img-rounded" />';
+								echo    ' <img src="images/admin.png" title="Administar" class="img-rounded" />';
 								echo '</a> </li>';
 							}
                             ?>
 							<li>
-                                <a href='formulario.php'>
-                                    <img src='images/perfil.png' class='img-rounded' />
+                                <a href='archivo.php'>
+                                    <img src='images/archivo.png' title="Archivo de tareas" class='img-rounded' />
                                 </a>
                             </li>
-                            <li>
-                                <a href='archivo.php'>
-                                    <img src='images/archivo.png' class='img-rounded' />
+							<li>
+                                <a href='formulario.php'>
+                                    <img src='images/perfil.png' title="Editar Usuario" class='img-rounded' />
                                 </a>
                             </li>
                             <li>
                                 <a href='pass_change.php'>
-                                    <img src='images/pass.png' class='img-rounded' />
+                                    <img src='images/pass.png' title="Cambiar contraseña" class='img-rounded' />
                                 </a>
                             </li>
 							<li>
                                 <a href='desconectar.php'>
-                                    <img src='images/cerrar.png' class='img-rounded' />
+                                    <img src='images/cerrar.png' title="Cerrar Sesión" class='img-rounded' />
                                 </a>
 								<!--<a href="desconectar.php"> Cerrar Cesión </a>-->
 							</li>

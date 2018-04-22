@@ -8,6 +8,7 @@ if (@!$_SESSION['username']) {
 <html lang="en">
   <head>
     <meta charset="utf-8">
+
     <title>Admin</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -38,11 +39,11 @@ if (@!$_SESSION['username']) {
 		<ul class="nav pull-right">
 			<li>
                 <a href='dashboard.php'>
-                    <img src='images/volver.png' class='img-rounded' />
+                    <img src='images/volver.png' title="Volver" class='img-rounded' />
                 </a>
             <li>
                 <a href="desconectar.php">
-                    <img src="images/cerrar.png" class='img-rounded' />
+                    <img src="images/cerrar.png" title="Cerrar Sesion" class='img-rounded' />
                 </a>   
             </li>		 
 		</ul>
