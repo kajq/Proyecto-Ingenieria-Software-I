@@ -9,6 +9,7 @@
  * @author keilo
  */
 	extract($_POST);
+	if($responsable==""){$responsable=$propietario;}
 	require("connect_db.php");
 	$sqlTask = mysqli_query($mysqli,"INSERT INTO tareas VALUES('', '$detalle', '$propietario','$responsable', '$fecha_entrega', 1)");
 

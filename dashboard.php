@@ -18,6 +18,7 @@ if ($datos_usuario['estado'] == 2){
 	echo '<script> $cf=confirm("Es necesario cambiar la contraseña"); </script>';
 	}
 }
+echo $_SERVER['REMOTE_ADDR'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

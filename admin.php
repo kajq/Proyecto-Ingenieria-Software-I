@@ -132,6 +132,81 @@ if (@!$_SESSION['username']) {
 		</div>	
 		<br/>
 		</div>
+<!-- //////////////////////////////////Termina tabla Ususarios ////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<div class="well well-small">
+		<hr class="soft"/>
+		<h4>Tabla de Notificaciones</h4>
+		<div class="row-fluid">
+
+			<?php
+			require("notificaciones.php");
+			$sql=("SELECT noti.codigo, noti.receptor, ta.detalle , case when noti.cod_mensaje = 1 then 'Recordatorio'  else 'Tiempo Vencido' end, case when noti.estado = 0 then 'Sin Enviar' else 'Enviado' end  FROM notificaciones noti
+				left join tareas ta 
+					on ta.codigo = noti.cod_tarea
+					where noti.estado = 0");
+			
+			//la variable  $mysqli viene de connect_db que lo traigo con el require("connect_db.php");
+			$query=mysqli_query($mysqli,$sql);
+
+			echo "<table border='1'; class='table table-hover';>";
+			echo "<tr class='warning'>";
+			echo "<td>Receptor</td>";
+			echo "<td>Tarea</td>";
+			echo "<td>Mensaje</td>";
+			echo "<td>Estado</td>";
+			echo "<td>Accion</td>";
+			echo "</tr>";
+
+			while($arreglo=mysqli_fetch_array($query)){
+				echo "<tr class='success'>";
+				echo "<td>$arreglo[1]</td>";
+				echo "<td>$arreglo[2]</td>";
+				echo "<td>$arreglo[3]</td>";
+				echo "<td>$arreglo[4]</td>";
+				echo "<td> <a href='admin.php?id_boton=3&id=$arreglo[0]'><img src='images/send.png' title='Enviar' class='img-rounded'/></a></td>";
+				echo "</tr>";
+			}
+				echo "</table>";
+				extract($_GET);
+			if(@$id_boton==3){
+				$qNotificaciones=mysqli_query($mysqli,"SELECT noti.codigo, noti.receptor, ta.detalle, noti.cod_mensaje, noti.estado FROM notificaciones noti
+						LEFT JOIN tareas ta 
+							ON ta.codigo = noti.cod_tarea where noti.codigo = $id ");
+				while($notificacion=mysqli_fetch_array($qNotificaciones)){
+					include("sendemail.php");//Llama la funcion que se encarga de enviar el correo electronico
+					$mail_addAddress=$notificacion[1];//correo electronico que recibira el mensaje
+					$template="email_template.html";//Ruta de la plantilla HTML para enviar nuestro mensaje
+					/*Inicio captura de datos enviados por $_POST para enviar el correo */
+					$mail_setFromEmail= $notificacion[1];
+					$mail_setFromName= 'Usuario';
+					if ($notificacion[3]==1){
+					$txt_message="La tarea $notificacion[2] ya se encuentra entre el tiempo programado para su recordatorio. Por favor finalizarla antes que se cumpla la fecha o extiende su fecha de entrega";
+					$mail_subject="Recordatorio tarea por vencer";	
+					} else {
+						$txt_message="La tarea $notificacion[2] ya se le acabo el plazo para completarla, por favor finalizala o realiza el cambio de fecha de entrega";
+					$mail_subject="Recordatorio tarea por vencer";	
+					}				
+				sendemail($mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);//Enviar el mensaje
+				$sqlNotificacion = mysqli_query($mysqli,
+				"UPDATE notificaciones SET estado = 1 WHERE codigo = $notificacion[0]");
+			if (!$sqlNotificacion) {
+				echo ' <script language="javascript">alert("Error al Actualizar tarea: ';
+				echo $mysqli->error;
+				echo '");</script> ';
+				printf("Errormessage1: %s\n", $mysqli->error);
+			}
+			}
+			echo ' <script language="javascript">alert("Mensajes enviado satisfactoriamente");</script> ';
+			header("Location: admin.php");
+		}
+			?>
+			
+		<div class="span8">
+		</div>	
+		</div>	
+		<br/>
+		</div>
 <!--///////////////////////////////////////////////////Termina cuerpo del documento interno////////////////////////////////////////////-->
 </div>
 </div>
